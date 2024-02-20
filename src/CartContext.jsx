@@ -14,6 +14,10 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(
     data.products.map((product) => ({ ...product, quantity: 1 }))
   );
+  const removeItemFromCart = (productId) => {
+    const removedItems = cartItems.filter((item) => item.id !== productId);
+    setCartItems(removedItems);
+  };
 
   // Function to update quantity of item in cart
   const updateQuantity = (productId, quantity) => {
@@ -32,7 +36,7 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, totalQuantity, totalAmount, updateQuantity }}
+      value={{ cartItems, totalQuantity, totalAmount,removeItemFromCart, updateQuantity }}
     >
       {children}
     </CartContext.Provider>
